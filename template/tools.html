@@ -1,42 +1,173 @@
+<script src="../js/jquery-3.5.1.js"></script>
 <style>
     #edit_tools {
-        display: none;
         position: absolute;
         overflow: hidden;
         box-shadow: 0px 0px 5px rgb(197, 196, 196);
         border-radius: 10px;
-        padding: 5px;
+        padding: 4px 5px;
+    }
+    
+    .item-box {
+        height: 60px;
+        line-height: 40px;
+        text-align: center;
+        position: relative;
+        float: left;
+    }
+    
+    .item-box:nth-child(1) {
+        width: 40px;
+    }
+    
+    .item-box:nth-child(2) {
+        width: 60px;
     }
     
     .edit_tool_colorPen {
-        float: left;
         border-radius: 50%;
         color: red;
         background-color: white;
+        right: 0px;
+        top: 50%;
+        transform: translateY(-50%);
         width: 20px;
         height: 20px;
         text-align: center;
         line-height: 20px;
-        display: block;
         box-shadow: 0px 0px 5px gray;
-        margin-left: 5px;
+        position: absolute;
+        z-index: 2;
+        cursor: pointer;
+        -webkit-user-select: none;
     }
     
     .edit_tool_backgroundColorPen {
-        float: left;
         border-radius: 50%;
         color: white;
         background-color: red;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         width: 20px;
         height: 20px;
         text-align: center;
         line-height: 20px;
-        display: block;
         box-shadow: 0px 0px 5px gray;
-        margin-left: 5px;
+        position: absolute;
+        z-index: 2;
+        cursor: pointer;
+        -webkit-user-select: none;
+    }
+    
+    .pen-item1,
+    .pen-item2,
+    .pen-item3,
+    .pen-item4 {
+        position: absolute;
+        cursor: pointer;
+        right: 2.25px;
+        top: calc(50% - 7.5px);
+        width: 15px;
+        height: 15px;
+        background-color: brown;
+        border-radius: 50%;
+        transition: transform 0.2s;
+    }
+    
+    .bc-item0,
+    .bc-item1,
+    .bc-item2,
+    .bc-item3,
+    .bc-item4 {
+        position: absolute;
+        cursor: pointer;
+        left: calc(50% - 7.5px);
+        top: calc(50% - 7.5px);
+        width: 15px;
+        height: 15px;
+        background-color: brown;
+        border-radius: 50%;
+        transition: transform 0.2s;
+    }
+    
+    .pen-item1:hover,
+    .pen-item2:hover,
+    .pen-item3:hover,
+    .pen-item4:hover,
+    .bc-item0:hover,
+    .bc-item1:hover,
+    .bc-item2:hover,
+    .bc-item3:hover,
+    .bc-item4:hover {
+        box-shadow: 0px 0px 5px rgb(0, 0, 0);
+    }
+    
+    .item0-go {
+        transform: rotateZ(-90deg) translateY(22px);
+    }
+    
+    .item1-go {
+        transform: rotateZ(0deg) translateY(22px);
+    }
+    
+    .item2-go {
+        transform: rotateZ(60deg) translateY(22px);
+    }
+    
+    .item3-go {
+        transform: rotateZ(120deg) translateY(22px);
+    }
+    
+    .item4-go {
+        transform: rotateZ(180deg) translateY(22px);
     }
 </style>
 <div>
-    <div class="edit_tool_colorPen">A</div>
-    <div class="edit_tool_backgroundColorPen">A</div>
+    <div id="edit_tools">
+        <div class="item-box pen-box">
+            <div class="pen-item1"></div>
+            <div class="pen-item2"></div>
+            <div class="pen-item3"></div>
+            <div class="pen-item4"></div>
+            <div class="edit_tool_colorPen">A</div>
+        </div>
+        <div class="item-box bc-box">
+            <div class="bc-item0"></div>
+            <div class="bc-item1"></div>
+            <div class="bc-item2"></div>
+            <div class="bc-item3"></div>
+            <div class="bc-item4"></div>
+            <div class="edit_tool_backgroundColorPen">A</div>
+        </div>
+    </div>
+    <script>
+        $(".pen-box").on("mouseenter", function() {
+            $(".pen-item1").addClass("item1-go")
+            $(".pen-item2").addClass("item2-go")
+            $(".pen-item3").addClass("item3-go")
+            $(".pen-item4").addClass("item4-go")
+        })
+        $(".pen-box").on("mouseleave", function() {
+            $(".pen-item1").removeClass("item1-go")
+            $(".pen-item2").removeClass("item2-go")
+            $(".pen-item3").removeClass("item3-go")
+            $(".pen-item4").removeClass("item4-go")
+        })
+
+        $(".bc-box").on("mouseenter", function() {
+            $(".bc-item0").addClass("item0-go")
+            $(".bc-item1").addClass("item1-go")
+            $(".bc-item2").addClass("item2-go")
+            $(".bc-item3").addClass("item3-go")
+            $(".bc-item4").addClass("item4-go")
+        })
+        $(".bc-box").on("mouseleave", function() {
+            $(".bc-item0").removeClass("item0-go")
+            $(".bc-item1").removeClass("item1-go")
+            $(".bc-item2").removeClass("item2-go")
+            $(".bc-item3").removeClass("item3-go")
+            $(".bc-item4").removeClass("item4-go")
+        })
+    </script>
 </div>
