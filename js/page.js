@@ -12,7 +12,7 @@ var global = {
 //--------工具区
 
 var tools = document.createElement("div");
-tools.id = "edit_tools";
+tools.id = "edit-tools";
 $j.get(chrome.extension.getURL("template/tools.html"), function(result) { //加载工具
     $j(tools).html(result);
 });
@@ -21,13 +21,12 @@ document.body.append(tools);
 setTimeout(() => {
     addBox()
     addToolEvent();
-    freshedit();
+    listenEdit();
     reEdit()
 }, 1000);
 
 function addToolEvent() { //监听工具和页面点击事件
-    $j(".edit_tool_colorPen").on("click", function() {
-        console.log(9990)
+    $j(".edit-tool-colorPen").on("click", function() {
         editTo({
             color: "red",
             backgroundColor: "blue",
@@ -37,17 +36,17 @@ function addToolEvent() { //监听工具和页面点击事件
     })
     $j("body").on("click", function(evt) {
         var thisrange = document.getSelection().getRangeAt(0);
-        if ($j(evt.target).is('#edit_tools') || $j(evt.target).is('#edit_tools *') || thisrange.collapsed == false) {
-            $j("#edit_tools").show()
+        if ($j(evt.target).is('#edit-tools') || $j(evt.target).is('#edit-tools *') || thisrange.collapsed == false) {
+            $j("#edit-tools").show()
         } else {
-            $j("#edit_tools").hide()
+            $j("#edit-tools").hide()
         }
     })
 }
 
 
 function reEdit() { //还原标记样式
-    var alldom = $j("edit_box");
+    var alldom = $j("edit-box");
     var domeditarr = JSON.parse(window.localStorage.getItem(window.location.href));
     if (domeditarr != null) {
         var editarrlength = domeditarr.length < alldom.length ? domeditarr.length : alldom.length //在标记库和现有网页dom之间选择数组长度最小的作为参考值，这样做是为了避开网页中多出的未知的内容
@@ -72,9 +71,9 @@ function reEdit() { //还原标记样式
     }
 }
 
-function freshedit() { //监听选择事件
+function listenEdit() { //监听选择事件
     $j("body").on("mouseup", function(evt) {
-        if ($j(evt.target).is('#edit_tools') || $j(evt.target).is('#edit_tools *')) {
+        if ($j(evt.target).is('#edit-tools') || $j(evt.target).is('#edit-tools *')) {
 
         } else {
             var range = document.getSelection().getRangeAt(0);
@@ -84,7 +83,7 @@ function freshedit() { //监听选择事件
                 var endDom = range.endContainer;
                 endDom.splitText(endOffset)
                 var end = endDom.nextSibling;
-                var indexNode = document.createElement("edit_i"); //用于定位选区位置
+                var indexNode = document.createElement("edit-i"); //用于定位选区位置
                 end.parentNode.insertBefore(indexNode, end)
                 var editIndex = $j(indexNode).offset()
                 tools.style.top = editIndex.top + $j(indexNode).innerHeight() + "px";
@@ -139,7 +138,7 @@ function editTo(editObj) { //执行标记动作
 };
 
 function saveChange() {
-    var oldDom = $j("edit_box").clone();
+    var oldDom = $j("edit-box").clone();
     var saveDom = [];
     var domLength = oldDom.length;
     for (var i = 0; i < domLength; i++) { //将结果保存进savedom
@@ -155,17 +154,18 @@ function saveChange() {
 function addBox() { //添加标识符
     var resultdom = [];
     fds(document.body);
-
     function fds(node) {
-        if (node.nodeType === 3 && node.textContent != "") {
-            resultdom.push(node);
-            if (node.parentNode.nodeName != "STYLE") {
-                $j(node).wrap("<edit_box></edit_box>")
+        if(node.className!="edit-tools"){
+            if (node.nodeType === 3 && node.textContent != "") {
+                resultdom.push(node);
+                if (node.parentNode.nodeName != "STYLE") {
+                    $j(node).wrap("<edit-box></edit-box>")
+                }
             }
-        }
-        var children = node.childNodes;
-        for (var i = 0; i < children.length; i++) {
-            fds(children[i]);
+            var children = node.childNodes;
+            for (var i = 0; i < children.length; i++) {
+                fds(children[i]);
+            }
         }
     }
     return resultdom;
@@ -179,7 +179,7 @@ function getRangeNode(node) { //用在保存步骤中，剔除textnode元素的�
     }
 
     function unwrap(child) {
-        if (child.parentNode.nodeName != "EDIT_BOX") {
+        if (child.parentNode.nodeName != "EDIT-BOX") {
             if (child.parentNode.nodeName != "EDIT") {
                 $j(child).unwrap();
                 unwrap(child)

@@ -1,8 +1,12 @@
+<link href="../dist/css/bootstrap-colorpicker.css" rel="stylesheet">
+<link href="../css/bootstrap.min.css" rel="stylesheet">
 <script src="../js/jquery-3.5.1.js"></script>
+<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../dist/js/bootstrap-colorpicker.js"></script>
+
 <style>
-    #edit_tools {
+    #edit-tools {
         position: absolute;
-        overflow: hidden;
         box-shadow: 0px 0px 5px rgb(197, 196, 196);
         border-radius: 10px;
         padding: 4px 5px;
@@ -24,7 +28,7 @@
         width: 60px;
     }
 
-    .edit_tool_colorPen {
+    .edit-tool-colorPen {
         border-radius: 50%;
         color: red;
         background-color: white;
@@ -42,7 +46,7 @@
         -webkit-user-select: none;
     }
 
-    .edit_tool_backgroundColorPen {
+    .edit-tool-backgroundColorPen {
         border-radius: 50%;
         color: white;
         background-color: red;
@@ -72,11 +76,10 @@
         height: 15px;
         background-color: brown;
         border-radius: 50%;
-        transition: transform 0.2s;
     }
 
-    .pen-item1 {
-        background-image: linear-gradient(to bottom right, red,yellow);
+    .pen-item4 {
+        background-image: linear-gradient(to bottom right, red, yellow);
     }
 
     .bc-item0 {
@@ -113,7 +116,6 @@
         border-bottom-color: transparent;
         border-top-color: transparent;
         border-radius: 5px;
-        transition: right 0.15s;
     }
 
     .bc-item0-down {
@@ -128,15 +130,44 @@
         border-bottom-color: transparent;
         border-top-color: transparent;
         border-radius: 5px;
-        transition: left 0.15s;
     }
 
     .bc-item0-up-go {
+        animation: item0-up 0.15s;
         right: -7px;
     }
 
     .bc-item0-down-go {
+        animation: item0-down 0.15s;
         left: -7px;
+    }
+
+    @keyframes item0-up {
+        0% {
+            right: 7px;
+        }
+
+        80% {
+            right: -9px;
+        }
+
+        100% {
+            right: -7px;
+        }
+    }
+
+    @keyframes item0-down {
+        0% {
+            left: 7px;
+        }
+
+        80% {
+            left: -9px;
+        }
+
+        100% {
+            left: -7px;
+        }
     }
 
     .bc-item1,
@@ -151,9 +182,31 @@
         height: 15px;
         background-color: brown;
         border-radius: 50%;
-        transition: transform 0.2s;
     }
 
+    .bc-item0 {
+        transform: rotateZ(-90deg);
+    }
+
+    .bc-item1,
+    .pen-item1 {
+        transform: rotateZ(180deg);
+    }
+
+    .bc-item2,
+    .pen-item2 {
+        transform: rotateZ(120deg);
+    }
+
+    .bc-item3,
+    .pen-item3 {
+        transform: rotateZ(60deg);
+    }
+
+    .bc-item4,
+    .pen-item4 {
+        transform: rotateZ(0deg);
+    }
 
     .pen-item1:hover,
     .pen-item2:hover,
@@ -168,33 +221,113 @@
     }
 
     .item0-go {
+        animation: item0 0.15s;
         transform: rotateZ(-90deg) translateY(22px);
     }
 
-    .item1-go {
+    .item4-go {
+        animation: item1 0.15s;
         transform: rotateZ(0deg) translateY(22px);
     }
 
-    .item2-go {
+    .item3-go {
+        animation: item2 0.15s;
         transform: rotateZ(60deg) translateY(22px);
     }
 
-    .item3-go {
+    .item2-go {
+        animation: item3 0.15s;
         transform: rotateZ(120deg) translateY(22px);
     }
 
-    .item4-go {
+    .item1-go {
+        animation: item4 0.15s;
         transform: rotateZ(180deg) translateY(22px);
+    }
+
+    @keyframes item0 {
+        0% {
+            transform: rotateZ(-90deg) translateY(0px);
+        }
+
+        80% {
+            transform: rotateZ(-90deg) translateY(25px);
+        }
+
+        100% {
+            transform: rotateZ(-90deg) translateY(22px);
+        }
+    }
+
+    @keyframes item1 {
+        0% {
+            transform: rotateZ(0deg) translateY(0px);
+        }
+
+        80% {
+            transform: rotateZ(0deg) translateY(25px);
+        }
+
+        100% {
+            transform: rotateZ(0deg) translateY(22px);
+        }
+    }
+
+    @keyframes item2 {
+        0% {
+            transform: rotateZ(60deg) translateY(0px);
+        }
+
+        80% {
+            transform: rotateZ(60deg) translateY(25px);
+        }
+
+        100% {
+            transform: rotateZ(60deg) translateY(22px);
+        }
+    }
+
+    @keyframes item3 {
+        0% {
+            transform: rotateZ(120deg) translateY(0px);
+        }
+
+        80% {
+            transform: rotateZ(120deg) translateY(25px);
+        }
+
+        100% {
+            transform: rotateZ(120deg) translateY(22px);
+        }
+    }
+
+    @keyframes item4 {
+        0% {
+            transform: rotateZ(180deg) translateY(0px);
+        }
+
+        80% {
+            transform: rotateZ(180deg) translateY(25px);
+        }
+
+        100% {
+            transform: rotateZ(180deg) translateY(22px);
+        }
+    }
+
+    #demo {
+        position: absolute;
+        right: 0px;
     }
 </style>
 <div>
-    <div id="edit_tools">
+    <div id="edit-tools" class="edit-tools">
         <div class="item-box pen-box">
             <div class="pen-item1"></div>
             <div class="pen-item2"></div>
             <div class="pen-item3"></div>
-            <div class="pen-item4"></div>
-            <div class="edit_tool_colorPen">A</div>
+            <div class="pen-item4"></div> <!-- 色彩选择 -->
+            <div class="edit-tool-colorPen">A</div>
         </div>
         <div class="item-box bc-box">
             <div class="bc-item0">
@@ -206,45 +339,63 @@
             <div class="bc-item2"></div>
             <div class="bc-item3"></div>
             <div class="bc-item4"></div>
-            <div class="edit_tool_backgroundColorPen">A</div>
+            <div class="edit-tool-backgroundColorPen">A</div>
+        </div>
+        <!--     <div id="edit-colorPicker" title="Using format option">
+            <input type="text" class="form-control input-lg" />
+            <span class="input-group-addon"><i></i></span>
+        </div> -->
+        <div id="demo" class="input-group">
+            <span class="input-group-append">
+                <span class="input-group-text colorpicker-input-addon"><i></i></span>
+            </span>
         </div>
     </div>
     <script>
-        $(".pen-box").on("mouseenter", function () {
-            $(".pen-item1").addClass("item1-go")
-            $(".pen-item2").addClass("item2-go")
-            $(".pen-item3").addClass("item3-go")
-            $(".pen-item4").addClass("item4-go")
+        var $q = jQuery.noConflict();
+        $q(".pen-box").on("mouseenter", function () {
+            $q(".pen-item1").addClass("item1-go")
+            $q(".pen-item2").addClass("item2-go")
+            $q(".pen-item3").addClass("item3-go")
+            $q(".pen-item4").addClass("item4-go")
         })
-        $(".pen-box").on("mouseleave", function () {
-            $(".pen-item1").removeClass("item1-go")
-            $(".pen-item2").removeClass("item2-go")
-            $(".pen-item3").removeClass("item3-go")
-            $(".pen-item4").removeClass("item4-go")
+        $q(".pen-box").on("mouseleave", function () {
+            $q(".pen-item1").removeClass("item1-go")
+            $q(".pen-item2").removeClass("item2-go")
+            $q(".pen-item3").removeClass("item3-go")
+            $q(".pen-item4").removeClass("item4-go")
         })
 
-        $(".bc-box").on("mouseenter", function () {
-            $(".bc-item0").addClass("item0-go")
-            $(".bc-item1").addClass("item1-go")
-            $(".bc-item2").addClass("item2-go")
-            $(".bc-item3").addClass("item3-go")
-            $(".bc-item4").addClass("item4-go")
+        $q(".bc-box").on("mouseenter", function () {
+            $q(".bc-item0").addClass("item0-go")
+            $q(".bc-item1").addClass("item1-go")
+            $q(".bc-item2").addClass("item2-go")
+            $q(".bc-item3").addClass("item3-go")
+            $q(".bc-item4").addClass("item4-go")
         })
-        $(".bc-box").on("mouseleave", function () {
-            $(".bc-item0").removeClass("item0-go")
-            $(".bc-item1").removeClass("item1-go")
-            $(".bc-item2").removeClass("item2-go")
-            $(".bc-item3").removeClass("item3-go")
-            $(".bc-item4").removeClass("item4-go")
+        $q(".bc-box").on("mouseleave", function () {
+            $q(".bc-item0").removeClass("item0-go")
+            $q(".bc-item1").removeClass("item1-go")
+            $q(".bc-item2").removeClass("item2-go")
+            $q(".bc-item3").removeClass("item3-go")
+            $q(".bc-item4").removeClass("item4-go")
         })
-        $(".bc-item0").on("mouseenter", function (evt) {
-            $(".bc-item0-up").addClass("bc-item0-up-go")
-            $(".bc-item0-down").addClass("bc-item0-down-go")
+        $q(".bc-item0").on("mouseenter", function (evt) {
+            $q(".bc-item0-up").addClass("bc-item0-up-go")
+            $q(".bc-item0-down").addClass("bc-item0-down-go")
         })
-        $(".bc-item0").on("mouseleave", function (evt) {
-            console.log(0)
-            $(".bc-item0-up").removeClass("bc-item0-up-go")
-            $(".bc-item0-down").removeClass("bc-item0-down-go")
+        $q(".bc-item0").on("mouseleave", function (evt) {
+            $q(".bc-item0-up").removeClass("bc-item0-up-go")
+            $q(".bc-item0-down").removeClass("bc-item0-down-go")
         })
+        var cp = $q('#demo').colorpicker();
+        cp.show();
+        $q(".pen-item4").on("click", function () {
+            cp.show();
+        })
+        $q("#ensureColor").on("click", function () {
+            cp.hide();
+        })
+        //cp.hide()
     </script>
 </div>
