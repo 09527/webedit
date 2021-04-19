@@ -7,7 +7,7 @@
         border-radius: 10px;
         padding: 4px 5px;
     }
-    
+
     .item-box {
         height: 60px;
         line-height: 40px;
@@ -15,15 +15,15 @@
         position: relative;
         float: left;
     }
-    
+
     .item-box:nth-child(1) {
         width: 40px;
     }
-    
+
     .item-box:nth-child(2) {
         width: 60px;
     }
-    
+
     .edit_tool_colorPen {
         border-radius: 50%;
         color: red;
@@ -41,7 +41,7 @@
         cursor: pointer;
         -webkit-user-select: none;
     }
-    
+
     .edit_tool_backgroundColorPen {
         border-radius: 50%;
         color: white;
@@ -59,7 +59,7 @@
         cursor: pointer;
         -webkit-user-select: none;
     }
-    
+
     .pen-item1,
     .pen-item2,
     .pen-item3,
@@ -74,8 +74,71 @@
         border-radius: 50%;
         transition: transform 0.2s;
     }
-    
-    .bc-item0,
+
+    .pen-item1 {
+        background-image: linear-gradient(to bottom right, red,yellow);
+    }
+
+    .bc-item0 {
+        position: absolute;
+        cursor: pointer;
+        left: calc(50% - 20px);
+        top: calc(50% - 10px);
+        width: 40px;
+        height: 20px;
+        transition: transform 0.2s;
+    }
+
+    .bc-item0-core {
+        position: absolute;
+        cursor: pointer;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: brown;
+        width: 15px;
+        height: 15px;
+        transition: transform 0.2s;
+    }
+
+    .bc-item0-up {
+        position: absolute;
+        right: 7px;
+        top: calc(50% - 7px);
+        width: 0px;
+        height: 0px;
+        border: 7px solid #000;
+        border-left-color: blue;
+        border-right-color: transparent;
+        border-bottom-color: transparent;
+        border-top-color: transparent;
+        border-radius: 5px;
+        transition: right 0.15s;
+    }
+
+    .bc-item0-down {
+        position: absolute;
+        left: 7px;
+        top: calc(50% - 7px);
+        width: 0px;
+        height: 0px;
+        border: 7px solid #000;
+        border-right-color: blue;
+        border-left-color: transparent;
+        border-bottom-color: transparent;
+        border-top-color: transparent;
+        border-radius: 5px;
+        transition: left 0.15s;
+    }
+
+    .bc-item0-up-go {
+        right: -7px;
+    }
+
+    .bc-item0-down-go {
+        left: -7px;
+    }
+
     .bc-item1,
     .bc-item2,
     .bc-item3,
@@ -90,35 +153,36 @@
         border-radius: 50%;
         transition: transform 0.2s;
     }
-    
+
+
     .pen-item1:hover,
     .pen-item2:hover,
     .pen-item3:hover,
     .pen-item4:hover,
-    .bc-item0:hover,
+    .bc-item0-core:hover,
     .bc-item1:hover,
     .bc-item2:hover,
     .bc-item3:hover,
     .bc-item4:hover {
         box-shadow: 0px 0px 5px rgb(0, 0, 0);
     }
-    
+
     .item0-go {
         transform: rotateZ(-90deg) translateY(22px);
     }
-    
+
     .item1-go {
         transform: rotateZ(0deg) translateY(22px);
     }
-    
+
     .item2-go {
         transform: rotateZ(60deg) translateY(22px);
     }
-    
+
     .item3-go {
         transform: rotateZ(120deg) translateY(22px);
     }
-    
+
     .item4-go {
         transform: rotateZ(180deg) translateY(22px);
     }
@@ -133,7 +197,11 @@
             <div class="edit_tool_colorPen">A</div>
         </div>
         <div class="item-box bc-box">
-            <div class="bc-item0"></div>
+            <div class="bc-item0">
+                <div class="bc-item0-up"></div>
+                <div class="bc-item0-down"></div>
+                <div class="bc-item0-core"></div>
+            </div>
             <div class="bc-item1"></div>
             <div class="bc-item2"></div>
             <div class="bc-item3"></div>
@@ -142,32 +210,41 @@
         </div>
     </div>
     <script>
-        $(".pen-box").on("mouseenter", function() {
+        $(".pen-box").on("mouseenter", function () {
             $(".pen-item1").addClass("item1-go")
             $(".pen-item2").addClass("item2-go")
             $(".pen-item3").addClass("item3-go")
             $(".pen-item4").addClass("item4-go")
         })
-        $(".pen-box").on("mouseleave", function() {
+        $(".pen-box").on("mouseleave", function () {
             $(".pen-item1").removeClass("item1-go")
             $(".pen-item2").removeClass("item2-go")
             $(".pen-item3").removeClass("item3-go")
             $(".pen-item4").removeClass("item4-go")
         })
 
-        $(".bc-box").on("mouseenter", function() {
+        $(".bc-box").on("mouseenter", function () {
             $(".bc-item0").addClass("item0-go")
             $(".bc-item1").addClass("item1-go")
             $(".bc-item2").addClass("item2-go")
             $(".bc-item3").addClass("item3-go")
             $(".bc-item4").addClass("item4-go")
         })
-        $(".bc-box").on("mouseleave", function() {
+        $(".bc-box").on("mouseleave", function () {
             $(".bc-item0").removeClass("item0-go")
             $(".bc-item1").removeClass("item1-go")
             $(".bc-item2").removeClass("item2-go")
             $(".bc-item3").removeClass("item3-go")
             $(".bc-item4").removeClass("item4-go")
+        })
+        $(".bc-item0").on("mouseenter", function (evt) {
+            $(".bc-item0-up").addClass("bc-item0-up-go")
+            $(".bc-item0-down").addClass("bc-item0-down-go")
+        })
+        $(".bc-item0").on("mouseleave", function (evt) {
+            console.log(0)
+            $(".bc-item0-up").removeClass("bc-item0-up-go")
+            $(".bc-item0-down").removeClass("bc-item0-down-go")
         })
     </script>
 </div>
