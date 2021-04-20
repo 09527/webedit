@@ -1,7 +1,7 @@
-<link href="../dist/css/bootstrap-colorpicker.css" rel="stylesheet">
-<link href="../css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="../dist/css/bootstrap-colorpicker.css" rel="stylesheet" />
+<link href="../dist/css/bootstrap4.0.min.css" rel="stylesheet" />
 <script src="../js/jquery-3.5.1.js"></script>
-<script src="../js/bootstrap.bundle.min.js"></script>
+<script src="../dist/js/bootstrap.min.js"></script>
 <script src="../dist/js/bootstrap-colorpicker.js"></script>
 
 <style>
@@ -76,11 +76,8 @@
         height: 15px;
         background-color: rgb(180, 180, 180);
         border-radius: 50%;
+        transition: transform 0.2s;
     }
-
-    /* .pen-item4 {
-        background-image: linear-gradient(to bottom right, red, yellow);
-    } */
 
     .bc-item0 {
         position: absolute;
@@ -182,9 +179,11 @@
         height: 15px;
         background-color: rgb(180, 180, 180);
         border-radius: 50%;
+        transition: transform 0.2s;
     }
 
     .bc-item0 {
+        opacity: 0;
         transform: rotateZ(-90deg);
     }
 
@@ -209,10 +208,11 @@
     }
 
     .bc-item4>img,
-    .pen-item4>img{
-        width:100%;
+    .pen-item4>img {
+        width: 100%;
         height: 100%;
     }
+
     .pen-item1:hover,
     .pen-item2:hover,
     .pen-item3:hover,
@@ -226,6 +226,7 @@
     }
 
     .item0-go {
+        opacity: 1;
         animation: item0 0.15s;
         transform: rotateZ(-90deg) translateY(22px);
     }
@@ -320,72 +321,119 @@
         }
     }
 
-    #demo {
-        position: absolute;
-        right: 0px;
-    }
-</style>
+    #colorValue {
+        width: 0px;
+        height: 0px;
+        opacity: 0;
+    } 
+</style> -->
 <div>
-    <div id="edit-tools" class="edit-tools">
-        <div class="item-box pen-box">
-            <div class="pen-item1"></div>
-            <div class="pen-item2"></div>
-            <div class="pen-item3"></div>
-            <div class="pen-item4"><img src="../img/colors.png"/></div> <!-- 色彩选择 -->
-            <div class="edit-tool-colorPen">A</div>
+
+    <div class="item-box pen-box">
+        <div class="pen-item1"></div>
+        <div class="pen-item2"></div>
+        <div class="pen-item3"></div>
+        <div class="pen-item4"><img class="color-choose-item" src="../img/colors.png" /></div>
+        <!-- 色彩选择 -->
+        <div class="edit-tool-colorPen">A</div>
+    </div>
+    <div class="item-box bc-box">
+        <div class="bc-item0">
+            <div class="bc-item0-up"></div>
+            <div class="bc-item0-down"></div>
+            <div class="bc-item0-core"></div>
         </div>
-        <div class="item-box bc-box">
-            <div class="bc-item0">
-                <div class="bc-item0-up"></div>
-                <div class="bc-item0-down"></div>
-                <div class="bc-item0-core"></div>
-            </div>
-            <div class="bc-item1"></div>
-            <div class="bc-item2"></div>
-            <div class="bc-item3"></div>
-            <div class="bc-item4"><img src="../img/colors.png"/></div>
-            <div class="edit-tool-backgroundColorPen">A</div>
-        </div>
-  
+        <div class="bc-item1"></div>
+        <div class="bc-item2"></div>
+        <div class="bc-item3"></div>
+        <div class="bc-item4"><img class="color-choose-item" src="../img/colors.png" /></div>
+        <div class="edit-tool-backgroundColorPen">A</div>
+    </div>
+    <div id="colorpicker">
+        <input id="colorValue">
     </div>
     <script>
-        var $q = jQuery.noConflict();
-        $q(".pen-box").on("mouseenter", function () {
-            $q(".pen-item1").addClass("item1-go")
-            $q(".pen-item2").addClass("item2-go")
-            $q(".pen-item3").addClass("item3-go")
-            $q(".pen-item4").addClass("item4-go")
-        })
-        $q(".pen-box").on("mouseleave", function () {
-            $q(".pen-item1").removeClass("item1-go")
-            $q(".pen-item2").removeClass("item2-go")
-            $q(".pen-item3").removeClass("item3-go")
-            $q(".pen-item4").removeClass("item4-go")
-        })
 
-        $q(".bc-box").on("mouseenter", function () {
-            $q(".bc-item0").addClass("item0-go")
-            $q(".bc-item1").addClass("item1-go")
-            $q(".bc-item2").addClass("item2-go")
-            $q(".bc-item3").addClass("item3-go")
-            $q(".bc-item4").addClass("item4-go")
+        /* $j(".pen-box").on("mouseenter", function () {
+            $j(".pen-item1").addClass("item1-go")
+            $j(".pen-item2").addClass("item2-go")
+            $j(".pen-item3").addClass("item3-go")
+            $j(".pen-item4").addClass("item4-go")
         })
-        $q(".bc-box").on("mouseleave", function () {
-            $q(".bc-item0").removeClass("item0-go")
-            $q(".bc-item1").removeClass("item1-go")
-            $q(".bc-item2").removeClass("item2-go")
-            $q(".bc-item3").removeClass("item3-go")
-            $q(".bc-item4").removeClass("item4-go")
+        $j(".pen-box").on("mouseleave", function () {
+            $j(".pen-item1").removeClass("item1-go")
+            $j(".pen-item2").removeClass("item2-go")
+            $j(".pen-item3").removeClass("item3-go")
+            $j(".pen-item4").removeClass("item4-go")
         })
-        $q(".bc-item0").on("mouseenter", function (evt) {
-            $q(".bc-item0-up").addClass("bc-item0-up-go")
-            $q(".bc-item0-down").addClass("bc-item0-down-go")
+        $j(".bc-box").on("mouseenter", function () {
+            $j(".bc-item0").addClass("item0-go")
+            $j(".bc-item1").addClass("item1-go")
+            $j(".bc-item2").addClass("item2-go")
+            $j(".bc-item3").addClass("item3-go")
+            $j(".bc-item4").addClass("item4-go")
         })
-        $q(".bc-item0").on("mouseleave", function (evt) {
-            $q(".bc-item0-up").removeClass("bc-item0-up-go")
-            $q(".bc-item0-down").removeClass("bc-item0-down-go")
+        $j(".bc-box").on("mouseleave", function () {
+            $j(".bc-item0").removeClass("item0-go")
+            $j(".bc-item1").removeClass("item1-go")
+            $j(".bc-item2").removeClass("item2-go")
+            $j(".bc-item3").removeClass("item3-go")
+            $j(".bc-item4").removeClass("item4-go")
         })
-     
+        $j(".bc-item0").on("mouseenter", function (evt) {
+            $j(".bc-item0-up").addClass("bc-item0-up-go")
+            $j(".bc-item0-down").addClass("bc-item0-down-go")
+        })
+        $j(".bc-item0").on("mouseleave", function (evt) {
+            $j(".bc-item0-up").removeClass("bc-item0-up-go")
+            $j(".bc-item0-down").removeClass("bc-item0-down-go")
+        })
+        var clickThis;
+        $j(".pen-item4,.bc-item4").on("click", function () {
+            clickThis = $j(this)
+            if (clickThis.hasClass("pen-item4")) {
+                var oldColor = $j(".edit-tool-colorPen").css("color");
+            }
+            if (clickThis.hasClass("bc-item4")) {
+                var oldColor = $j(".edit-tool-backgroundColorPen").css("background-color");
+            }
+            var cp = $j("#colorpicker").colorpicker({
+                popover: true,
+                inline: true,
+                container: "#colorValue",
+                template:
+                    '<div class="colorpicker">' +
+                    '<div class="colorpicker-saturation"><i class="colorpicker-guide"></i></div>' +
+                    '<div class="colorpicker-hue"><i class="colorpicker-guide"></i></div>' +
+                    '<div class="colorpicker-alpha">' +
+                    '   <div class="colorpicker-alpha-color"></div>' +
+                    '   <i class="colorpicker-guide"></i>' +
+                    "</div>" +
+                    '<button type="button" class="btn sureColor btn-normal btn-sm">确定</button><button style="margin-left:5px;" class="btn cancleColor btn-normal btn-sm">取消</button>' +
+                    "</div>",
+            });
+            cp.show()
+            cp.on("colorpickerChange", function (o, evt) {
+                if (clickThis.hasClass("pen-item4")) {
+                    $j(".edit-tool-colorPen").css("color", $j("#colorValue").val())
+                }
+                if (clickThis.hasClass("bc-item4")) {
+                    $j(".edit-tool-backgroundColorPen").css("background-color", $j("#colorValue").val())
+                }
+            })
+            $j(".sureColor").on("click", function () {
+                cp.hide()
+            })
+            $j(".cancleColor").on("click", function () {
+                if (clickThis.hasClass("pen-item4")) {
+                    $j(".edit-tool-colorPen").css("color", oldColor)
+                }
+                if (clickThis.hasClass("bc-item4")) {
+                    $j(".edit-tool-backgroundColorPen").css("background-color", oldColor)
+                }
+                cp.hide()
+            })
+        }) */
         //cp.hide()
     </script>
 </div>

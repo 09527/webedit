@@ -13,21 +13,25 @@
             "js/home.js"
         ]
     },
-    "content_scripts": [{
-        "matches": [
-            "<all_urls>",
-            "http://*/"
-        ],
-        "js": [
-            "js/jquery-3.5.1.js",
-            "js/page.js"
-        ],
-        "css": [
-            "css/mystyle.css"
-        ],
-        "all_frames": false,
-        "run_at": "document_end"
-    }],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>",
+                "http://*/"
+            ],
+            "js": [
+                "js/jquery-3.5.1.js",
+                "dist/js/bootstrap-colorpicker.js",
+                "js/page.js"
+            ],
+            "css": [
+                "css/mystyle.css",
+                "dist/css/bootstrap-colorpicker.css"
+            ],
+            "all_frames": false,
+            "run_at": "document_end"
+        }
+    ],
     "permissions": [
         "contextMenus",
         "tabs",
@@ -43,5 +47,13 @@
         "48": "img/icon.png",
         "128": "img/icon.png"
     },
-    "web_accessible_resources": ["img/icon.png", "img/site.png", "template/tools.html", "js/jquery-3.5.1.js"]
+    "web_accessible_resources": [
+        "img/*.png",
+        "template/tools.html",
+        "js/jquery-3.5.1.js",
+        "js/*.js",
+        "css/*.css",
+        "dist/css/*.css",
+        "dist/js/*.js"
+    ]
 }
