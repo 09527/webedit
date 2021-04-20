@@ -74,13 +74,13 @@
         top: calc(50% - 7.5px);
         width: 15px;
         height: 15px;
-        background-color: brown;
+        background-color: rgb(180, 180, 180);
         border-radius: 50%;
     }
 
-    .pen-item4 {
+    /* .pen-item4 {
         background-image: linear-gradient(to bottom right, red, yellow);
-    }
+    } */
 
     .bc-item0 {
         position: absolute;
@@ -180,7 +180,7 @@
         top: calc(50% - 7.5px);
         width: 15px;
         height: 15px;
-        background-color: brown;
+        background-color: rgb(180, 180, 180);
         border-radius: 50%;
     }
 
@@ -208,6 +208,11 @@
         transform: rotateZ(0deg);
     }
 
+    .bc-item4>img,
+    .pen-item4>img{
+        width:100%;
+        height: 100%;
+    }
     .pen-item1:hover,
     .pen-item2:hover,
     .pen-item3:hover,
@@ -326,7 +331,7 @@
             <div class="pen-item1"></div>
             <div class="pen-item2"></div>
             <div class="pen-item3"></div>
-            <div class="pen-item4"></div> <!-- 色彩选择 -->
+            <div class="pen-item4"><img src="../img/colors.png"/></div> <!-- 色彩选择 -->
             <div class="edit-tool-colorPen">A</div>
         </div>
         <div class="item-box bc-box">
@@ -338,18 +343,10 @@
             <div class="bc-item1"></div>
             <div class="bc-item2"></div>
             <div class="bc-item3"></div>
-            <div class="bc-item4"></div>
+            <div class="bc-item4"><img src="../img/colors.png"/></div>
             <div class="edit-tool-backgroundColorPen">A</div>
         </div>
-        <!--     <div id="edit-colorPicker" title="Using format option">
-            <input type="text" class="form-control input-lg" />
-            <span class="input-group-addon"><i></i></span>
-        </div> -->
-        <div id="demo" class="input-group">
-            <span class="input-group-append">
-                <span class="input-group-text colorpicker-input-addon"><i></i></span>
-            </span>
-        </div>
+  
     </div>
     <script>
         var $q = jQuery.noConflict();
@@ -388,14 +385,7 @@
             $q(".bc-item0-up").removeClass("bc-item0-up-go")
             $q(".bc-item0-down").removeClass("bc-item0-down-go")
         })
-        var cp = $q('#demo').colorpicker();
-        cp.show();
-        $q(".pen-item4").on("click", function () {
-            cp.show();
-        })
-        $q("#ensureColor").on("click", function () {
-            cp.hide();
-        })
+     
         //cp.hide()
     </script>
 </div>
