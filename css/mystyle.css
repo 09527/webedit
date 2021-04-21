@@ -1,366 +1,399 @@
 .editEnter {
-    background-color: #1890ff !important;
-    color: white !important;
-    border-radius: 5px;
+  background-color: #1890ff !important;
+  color: white !important;
+  border-radius: 5px;
 }
 
 #edit-tools {
-    display: none;
-    position: absolute;
-    box-shadow: 0px 0px 5px rgb(197, 196, 196);
-    border-radius: 10px;
-    padding: 4px 5px;
+  display: none;
+  position: absolute;
+  box-shadow: 0px 0px 5px rgb(197, 196, 196);
+  border-radius: 25px;
+  width: 108px;
+  height: 30px;
 }
-
+#edit-tools,#edit-tools *{
+    font-size: 12px;
+    font-family: "Ya Hei";
+}
+.edit-box {
+  position: absolute;
+  top: -15px;
+  left:-16px;
+}
 .item-box {
-    height: 60px;
-    line-height: 60px;
-    text-align: center;
-    position: relative;
-    float: left;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  position: relative;
+  float: left;
 }
 
 .item-box:nth-child(1) {
-    width: 40px;
+  width: 40px;
 }
 
 .item-box:nth-child(2) {
-    width: 60px;
+  width: 60px;
 }
 
 .item-box:nth-child(3) {
-    width: 20px;
+  width: 20px;
 }
 
 .edit-tool-colorPen {
-    border-radius: 50%;
-    color: red;
-    background-color: white;
-    right: 0px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    box-shadow: 0px 0px 5px gray;
-    position: absolute;
-    z-index: 2;
-    cursor: pointer;
-    -webkit-user-select: none;
+  border-radius: 50%;
+  color: red;
+  background-color: white;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  box-shadow: 0px 0px 5px gray;
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+  -webkit-user-select: none;
 }
 
 .edit-tool-backgroundColorPen {
-    border-radius: 50%;
-    color: white;
-    background-color: red;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    box-shadow: 0px 0px 5px gray;
-    position: absolute;
-    z-index: 2;
-    cursor: pointer;
-    -webkit-user-select: none;
+  border-radius: 50%;
+  color: white;
+  background-color: #bebebe;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  box-shadow: 0px 0px 5px gray;
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+  -webkit-user-select: none;
 }
 
 .edit-tool-del {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
-    text-align: center;
-    border-radius: 50%;
-    box-shadow: 0px 0px 5px gray;
-    z-index: 2;
-    cursor: pointer;
-    -webkit-user-select: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px gray;
+  z-index: 2;
+  cursor: pointer;
+  -webkit-user-select: none;
 }
 
-.pen-item1, .pen-item2, .pen-item3, .pen-item4 {
-    position: absolute;
-    cursor: pointer;
-    right: 2.25px;
-    top: calc(50% - 7.5px);
-    width: 15px;
-    height: 15px;
-    background-color: rgb(180, 180, 180);
-    box-shadow: 0px 0px 5px rgb(226, 226, 226);
-    border-radius: 50%;
-    transition: transform 0.2s;
+.pen-item1,
+.pen-item2,
+.pen-item3,
+.pen-item4 {
+  position: absolute;
+  cursor: pointer;
+  right: 2.25px;
+  top: calc(50% - 7.5px);
+  width: 15px;
+  height: 15px;
+  background-color: rgb(180, 180, 180);
+  box-shadow: 0px 0px 5px rgb(226, 226, 226);
+  border-radius: 50%;
+  transition: transform 0.2s;
 }
 
 .bc-item0 {
-    position: absolute;
-    cursor: pointer;
-    left: calc(50% - 20px);
-    top: calc(50% - 10px);
-    width: 40px;
-    height: 20px;
-    transition: transform 0.2s;
+  position: absolute;
+  cursor: pointer;
+  left: calc(50% - 20px);
+  top: calc(50% - 10px);
+  width: 40px;
+  height: 20px;
+  transition: transform 0.2s;
 }
 
 .bc-item0-core {
-    position: absolute;
-    cursor: pointer;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    background-color: brown;
-    width: 15px;
-    height: 15px;
-    transition: transform 0.2s;
+  position: absolute;
+  cursor: pointer;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: brown;
+  width: 15px;
+  height: 15px;
+  transition: transform 0.2s;
 }
 
 .bc-item0-up {
-    position: absolute;
-    right: 7px;
-    top: calc(50% - 7px);
-    width: 0px;
-    height: 0px;
-    border: 7px solid #000;
-    border-left-color: blue;
-    border-right-color: transparent;
-    border-bottom-color: transparent;
-    border-top-color: transparent;
-    border-radius: 5px;
+  position: absolute;
+  right: 7px;
+  top: calc(50% - 7px);
+  width: 0px;
+  height: 0px;
+  border: 7px solid #000;
+  border-left-color: blue;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-radius: 5px;
 }
 
 .bc-item0-down {
-    position: absolute;
-    left: 7px;
-    top: calc(50% - 7px);
-    width: 0px;
-    height: 0px;
-    border: 7px solid #000;
-    border-right-color: blue;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    border-top-color: transparent;
-    border-radius: 5px;
+  position: absolute;
+  left: 7px;
+  top: calc(50% - 7px);
+  width: 0px;
+  height: 0px;
+  border: 7px solid #000;
+  border-right-color: blue;
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-radius: 5px;
 }
 
 .bc-item0-up-go {
-    animation: item0-up 0.15s;
-    right: -7px;
+  animation: item0-up 0.15s;
+  right: -7px;
 }
 
 .bc-item0-down-go {
-    animation: item0-down 0.15s;
-    left: -7px;
+  animation: item0-down 0.15s;
+  left: -7px;
 }
 
 @keyframes item0-up {
-    0% {
-        right: 7px;
-    }
-    80% {
-        right: -9px;
-    }
-    100% {
-        right: -7px;
-    }
+  0% {
+    right: 7px;
+  }
+  80% {
+    right: -9px;
+  }
+  100% {
+    right: -7px;
+  }
 }
 
 @keyframes item0-down {
-    0% {
-        left: 7px;
-    }
-    80% {
-        left: -9px;
-    }
-    100% {
-        left: -7px;
-    }
+  0% {
+    left: 7px;
+  }
+  80% {
+    left: -9px;
+  }
+  100% {
+    left: -7px;
+  }
 }
 
-.bc-item1, .bc-item2, .bc-item3, .bc-item4 {
-    position: absolute;
-    cursor: pointer;
-    left: calc(50% - 7.5px);
-    top: calc(50% - 7.5px);
-    width: 15px;
-    height: 15px;
-    background-color: rgb(180, 180, 180);
-    border-radius: 50%;
-    transition: transform 0.2s;
-    box-shadow: 0px 0px 5px rgb(226, 226, 226);
+.bc-item1,
+.bc-item2,
+.bc-item3,
+.bc-item4 {
+  position: absolute;
+  cursor: pointer;
+  left: calc(50% - 7.5px);
+  top: calc(50% - 7.5px);
+  width: 15px;
+  height: 15px;
+  background-color: rgb(180, 180, 180);
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0px 0px 5px rgb(226, 226, 226);
 }
 
 .bc-item0 {
-    opacity: 0;
-    transform: rotateZ(-90deg);
+  opacity: 0;
+  transform: rotateZ(-90deg);
 }
 
-.bc-item1, .pen-item1 {
-    transform: rotateZ(180deg);
+.bc-item1,
+.pen-item1 {
+  transform: rotateZ(180deg);
 }
 
-.bc-item2, .pen-item2 {
-    transform: rotateZ(120deg);
+.bc-item2,
+.pen-item2 {
+  transform: rotateZ(120deg);
 }
 
-.bc-item3, .pen-item3 {
-    transform: rotateZ(60deg);
+.bc-item3,
+.pen-item3 {
+  transform: rotateZ(60deg);
 }
 
-.bc-item4, .pen-item4 {
-    transform: rotateZ(0deg);
+.bc-item4,
+.pen-item4 {
+  transform: rotateZ(0deg);
 }
 
-.bc-item4>img, .pen-item4>img {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
+.bc-item4 > img,
+.pen-item4 > img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
 }
 
-.pen-item1:hover, .pen-item2:hover, .pen-item3:hover, .pen-item4:hover, .bc-item0-core:hover, .bc-item1:hover, .bc-item2:hover, .bc-item3:hover, .bc-item4:hover {
-    box-shadow: 0px 0px 5px #000000;
+.pen-item1:hover,
+.pen-item2:hover,
+.pen-item3:hover,
+.pen-item4:hover,
+.bc-item0-core:hover,
+.bc-item1:hover,
+.bc-item2:hover,
+.bc-item3:hover,
+.bc-item4:hover {
+  box-shadow: 0px 0px 5px #000000;
 }
 
 .item0-go {
-    opacity: 1;
-    animation: item0 0.15s;
-    transform: rotateZ(-90deg) translateY(22px);
+  opacity: 1;
+  animation: item0 0.15s;
+  transform: rotateZ(-90deg) translateY(22px);
 }
 
 .item4-go {
-    animation: item1 0.15s;
-    transform: rotateZ(0deg) translateY(22px);
+  animation: item1 0.15s;
+  transform: rotateZ(0deg) translateY(22px);
 }
 
 .item3-go {
-    animation: item2 0.15s;
-    transform: rotateZ(60deg) translateY(22px);
+  animation: item2 0.15s;
+  transform: rotateZ(60deg) translateY(22px);
 }
 
 .item2-go {
-    animation: item3 0.15s;
-    transform: rotateZ(120deg) translateY(22px);
+  animation: item3 0.15s;
+  transform: rotateZ(120deg) translateY(22px);
 }
 
 .item1-go {
-    animation: item4 0.15s;
-    transform: rotateZ(180deg) translateY(22px);
+  animation: item4 0.15s;
+  transform: rotateZ(180deg) translateY(22px);
 }
 
 @keyframes item0 {
-    0% {
-        transform: rotateZ(-90deg) translateY(0px);
-    }
-    80% {
-        transform: rotateZ(-90deg) translateY(25px);
-    }
-    100% {
-        transform: rotateZ(-90deg) translateY(22px);
-    }
+  0% {
+    transform: rotateZ(-90deg) translateY(0px);
+  }
+  80% {
+    transform: rotateZ(-90deg) translateY(25px);
+  }
+  100% {
+    transform: rotateZ(-90deg) translateY(22px);
+  }
 }
 
 @keyframes item1 {
-    0% {
-        transform: rotateZ(0deg) translateY(0px);
-    }
-    80% {
-        transform: rotateZ(0deg) translateY(25px);
-    }
-    100% {
-        transform: rotateZ(0deg) translateY(22px);
-    }
+  0% {
+    transform: rotateZ(0deg) translateY(0px);
+  }
+  80% {
+    transform: rotateZ(0deg) translateY(25px);
+  }
+  100% {
+    transform: rotateZ(0deg) translateY(22px);
+  }
 }
 
 @keyframes item2 {
-    0% {
-        transform: rotateZ(60deg) translateY(0px);
-    }
-    80% {
-        transform: rotateZ(60deg) translateY(25px);
-    }
-    100% {
-        transform: rotateZ(60deg) translateY(22px);
-    }
+  0% {
+    transform: rotateZ(60deg) translateY(0px);
+  }
+  80% {
+    transform: rotateZ(60deg) translateY(25px);
+  }
+  100% {
+    transform: rotateZ(60deg) translateY(22px);
+  }
 }
 
 @keyframes item3 {
-    0% {
-        transform: rotateZ(120deg) translateY(0px);
-    }
-    80% {
-        transform: rotateZ(120deg) translateY(25px);
-    }
-    100% {
-        transform: rotateZ(120deg) translateY(22px);
-    }
+  0% {
+    transform: rotateZ(120deg) translateY(0px);
+  }
+  80% {
+    transform: rotateZ(120deg) translateY(25px);
+  }
+  100% {
+    transform: rotateZ(120deg) translateY(22px);
+  }
 }
 
 @keyframes item4 {
-    0% {
-        transform: rotateZ(180deg) translateY(0px);
-    }
-    80% {
-        transform: rotateZ(180deg) translateY(25px);
-    }
-    100% {
-        transform: rotateZ(180deg) translateY(22px);
-    }
+  0% {
+    transform: rotateZ(180deg) translateY(0px);
+  }
+  80% {
+    transform: rotateZ(180deg) translateY(25px);
+  }
+  100% {
+    transform: rotateZ(180deg) translateY(22px);
+  }
 }
 
 #colorValue {
-    width: 0px;
-    height: 0px;
-    opacity: 0;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
 }
 
 .del_icon {
-    color: rgb(122, 122, 122);
-    position: absolute;
-    top: calc(50% + 2px);
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
-    line-height: 10px;
-    text-align: center;
-    font-size: 10px;
-    border-left: solid 1.75px currentColor;
-    border-right: solid 1.75px currentColor;
-    border-bottom: solid 1.75px currentColor;
-    border-radius: 0 0 3px 3px;
+  color: rgb(122, 122, 122);
+  position: absolute;
+  top: calc(50% + 2px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 9px;
+  line-height: 10px;
+  text-align: center;
+  font-size: 10px;
+  border-left: solid 1.75px black;
+  border-right: solid 1.75px black;
+  border-bottom: solid 1.75px black;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .del_icon:after {
-    content: '';
-    position: absolute;
-    left: 0px;
-    top: -4px;
-    width: 7px;
-    height: 2px;
-    border-left: solid 1.75px currentColor;
-    border-right: solid 1.75px currentColor;
-    border-top: solid 1.75px currentColor;
-    border-radius: 4px 4px 0 0;
-    transition: transform 0.2s;
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform:translateX(-50%);
+  top: -6px;
+  width: 6px;
+  height: 2px;
+  border-left: solid 1.75px black;
+  border-right: solid 1.75px black;
+  border-top: solid 1.75px black;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  transition: transform 0.2s;
 }
 
 .del_icon:before {
-    content: "";
-    position: absolute;
-    left: -2.5px;
-    top: -4px;
-    width: 12px;
-    height: 2px;
-    border-bottom: solid 1.75px currentColor;
-    border-radius: 5px 5px 0 0;
-    transition: transform 0.2s;
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform:translateX(-50%);
+  top: -5px;
+  width: 12px;
+  height: 2px;
+  border-bottom: solid 1.75px black;
+  border-radius: 5px 5px 0 0;
+  transition: transform 0.2s;
 }
 
-.edit-tool-del:active .del_icon:after, .edit-tool-del:active .del_icon:before {
-    transform: rotateZ(30deg) translateY(-2px);
+.edit-tool-del:active .del_icon:after,
+.edit-tool-del:active .del_icon:before {
+  transform: rotateZ(30deg) translateY(-2px);
 }
