@@ -55,14 +55,16 @@ $j.get(chrome.extension.getURL("template/tools.html"), function (result) { //加
         $j(".bc-item0-down").removeClass("bc-item0-down-go")
     })
     $j(".bc-item0-up").on("click", function () {
-
-        $j(".bc-item0-core").css("border-radius", parseInt($j(".bc-item0-core").css("border-radius").replace("px", "")) - 1 + "px")
-
+        $j(".bc-item0-core").css("border-radius", parseInt($j(".bc-item0-core").css("border-radius")) + 1 + "px")
+        global.borderRadius = parseInt($j(".bc-item0-core").css("border-radius"));
+        saveChange()
     })
     $j(".bc-item0-down").on("click", function () {
         if (parseInt($j(".bc-item0-core").css("border-radius").replace("px", "")) > 0) {
-            $j(".bc-item0-core").css("border-radius", $j(".bc-item0-core").css("border-radius") + 1 + "px")
+            $j(".bc-item0-core").css("border-radius", parseInt($j(".bc-item0-core").css("border-radius")) - 1 + "px")
         }
+        global.borderRadius = parseInt($j(".bc-item0-core").css("border-radius"));
+        saveChange()
     })
     var clickThis, oldColor;
     var cp = $j("#colorpicker").colorpicker({//创建取色板
@@ -93,6 +95,16 @@ $j.get(chrome.extension.getURL("template/tools.html"), function (result) { //加
         if (clickThis.hasClass("bc-item4")) {
             oldColor = $j(".edit-tool-backgroundColorPen").css("background-color");
         }
+    })
+    $j(".recentColor").on("click", function () {
+        $j(".edit-tool-colorPen").css("color", $j(this).css("background-color"))
+        global.color = $j(this).css("background-color");
+        saveChange()
+    })
+    $j(".recentBackgroundColor").on("click", function () {
+        $j(".edit-tool-backgroundColorPen").css("background-color", $j(this).css("background-color"))
+        global.backgroundColor = $j(this).css("background-color");
+        saveChange()
     })
     cp.on("colorpickerChange", function (o, evt) {
         if (clickThis.hasClass("pen-item4")) {
@@ -147,6 +159,7 @@ setTimeout(() => {
 
 function addToolEvent() { //监听工具和页面点击事件
     $j(".edit-tool-colorPen").on("click", function () {
+        console.log(global.editId)
         editTo({
             type: "color",
             editId: global.editId,
@@ -155,31 +168,35 @@ function addToolEvent() { //监听工具和页面点击事件
         saveChange()
     })
     $j(".edit-tool-backgroundColorPen").on("click", function () {
+        console.log(global.editId)
         editTo({
             type: "backgroundColor",
             editId: global.editId,
-            color: global.backgroundColor
+            color: global.backgroundColor,
+            borderRadius: global.borderRadius
         })
         saveChange()
     })
-    $j("body").on("click", function (evt) {
-        var thisrange = document.getSelection().getRangeAt(0);
-        if ($j(evt.target).is('#edit-tools') || $j(evt.target).is('#edit-tools *') || thisrange.collapsed == false) {
-            $j("#edit-tools").show()
-        } else {
-            $j("#edit-tools").hide()
-        }
+    $j(".edit-tool-del").on("click", function () {
+        console.log(global.editId)
+        editTo({
+            type: "delete",
+            editId: global.editId
+        })
+        saveChange()
     })
+
 }
 
 function reEdit() { //还原标记样式
     var alldom = $j("edit-box");
     var savedGlobal = JSON.parse(window.localStorage.getItem(window.location.href));
     if (savedGlobal) {
-        console.log(savedGlobal)
         var domeditarr = savedGlobal.saveDom;
         global.color = savedGlobal.color;
+        global.borderRadius = savedGlobal.borderRadius;
         global.backgroundColor = savedGlobal.backgroundColor;
+        $j(".bc-item0-core").css("border-radius", savedGlobal.borderRadius + "px")
         $j(".edit-tool-colorPen").css("color", savedGlobal.color)
         $j(".edit-tool-backgroundColorPen").css("background-color", savedGlobal.backgroundColor)
         if (savedGlobal.recentColor) {
@@ -191,9 +208,10 @@ function reEdit() { //还原标记样式
         if (savedGlobal.recentBackgroundColor) {
             global.recentBackgroundColor = savedGlobal.recentBackgroundColor;
             for (var i = 0; i < savedGlobal.recentBackgroundColor.length; i++) {
-                $j(".pc-item" + (i + 1).toString()).css("background-color", savedGlobal.recentBackgroundColor[savedGlobal.recentBackgroundColor.length - i - 1])
+                $j(".bc-item" + (i + 1).toString()).css("background-color", savedGlobal.recentBackgroundColor[savedGlobal.recentBackgroundColor.length - i - 1])
             }
         }
+
         if (domeditarr != null) {
             var editarrlength = domeditarr.length < alldom.length ? domeditarr.length : alldom.length //在标记库和现有网页dom之间选择数组长度最小的作为参考值，这样做是为了避开网页中多出的未知的内容
             for (var i = 0; i < editarrlength; i++) {
@@ -211,9 +229,13 @@ function reEdit() { //还原标记样式
             $j("edit").on("mouseenter", function () {
                 $j(tools).show();
                 global.editId = $j(this).attr("editId")
+                $j("[editId='" + $j(this).attr("editId") + "'").addClass("editEnter");
                 var editIndex = $j("[editId='" + $j(this).attr("editId") + "'").last().offset();
                 tools.style.top = editIndex.top + $j("[editId='" + $j(this).attr("editId") + "'").last().innerHeight() + "px";
                 tools.style.left = editIndex.left + $j("[editId='" + $j(this).attr("editId") + "'").last().innerWidth() + "px";
+            })
+            $j("edit").on("mouseleave", function () {
+                $j("[editId='" + $j(this).attr("editId") + "'").removeClass("editEnter");
             })
         }
     } else {
@@ -224,30 +246,44 @@ function reEdit() { //还原标记样式
 
 function listenEdit() { //监听选择事件
     $j("body").on("mouseup", function (evt) {
-        var range = document.getSelection().getRangeAt(0);
-        global.range = range;
-        if ($j(evt.target).is('#edit-tools') || $j(evt.target).is('#edit-tools *')) {
-
+        if (document.getSelection().rangeCount != 0) {
+            if (document.getSelection().getRangeAt(0).startContainer != $j("#colorpicker")[0]) {
+                var range = document.getSelection().getRangeAt(0);
+                if ($j(evt.target).is('#edit-tools') || $j(evt.target).is('#edit-tools *') || $j(evt.target).is('#colorPicker') || $j(evt.target).is('#colorPicker *')) {
+                    $j("#edit-tools").show()
+                } else {
+                    if (range.collapsed != true) {
+                        global.range = range;
+                        var endOffset = range.endOffset;
+                        var endDom = range.endContainer;
+                        endDom.splitText(endOffset)
+                        var end = endDom.nextSibling;
+                        var indexNode = document.createElement("edit-i"); //用于定位选区位置
+                        end.parentNode.insertBefore(indexNode, end)
+                        var editIndex = $j(indexNode).offset()
+                        tools.style.top = editIndex.top + $j(indexNode).innerHeight() + "px";
+                        tools.style.left = editIndex.left + $j(indexNode).innerWidth() + "px";
+                        $j(tools).show();
+                        $j(indexNode).remove()
+                    } else {
+                        $j("#edit-tools").hide()
+                    }
+                }
+            }
         } else {
-            if (range.collapsed != true) {
-                var endOffset = range.endOffset;
-                var endDom = range.endContainer;
-                endDom.splitText(endOffset)
-                var end = endDom.nextSibling;
-                var indexNode = document.createElement("edit-i"); //用于定位选区位置
-                end.parentNode.insertBefore(indexNode, end)
-                var editIndex = $j(indexNode).offset()
-                tools.style.top = editIndex.top + $j(indexNode).innerHeight() + "px";
-                tools.style.left = editIndex.left + $j(indexNode).innerWidth() + "px";
-                $j(tools).show();
-                $j(indexNode).remove()
+            if ($j(evt.target).is('#edit-tools') || $j(evt.target).is('#edit-tools *') || $j(evt.target).is('#colorPicker') || $j(evt.target).is('#colorPicker *')) {
+                $j("#edit-tools").show()
+            } else {
+                $j("#edit-tools").hide()
             }
         }
+
+
     })
 }
 
 function editTo(editObj) { //执行标记动作
-    if (global.range != "" && global.range != null) { //表示新选择了文本，需要建立选择区
+    if (global.range && global.range != null) { //表示新选择了文本，需要建立选择区
         var startOffset = global.range.startOffset;
         var startDom = global.range.startContainer;
         startDom.splitText(startOffset);
@@ -263,10 +299,10 @@ function editTo(editObj) { //执行标记动作
 
         selLength = endIndex - startIndex + 1;
         var editId = new Date().getTime();
+        global.editId = editId;
         for (var i = 0; i < selLength; i++) {
             var nextdom = alldom[startIndex + i]
             var newnode = document.createElement("edit");
-            global.editId = editId;
             editObj.editId = editId;
             newnode.setAttribute("editId", editId);
             newnode.textContent = nextdom.textContent;
@@ -276,10 +312,15 @@ function editTo(editObj) { //执行标记动作
         sel.removeAllRanges();
         global.range = null;
         $j("[editId='" + global.editId + "']").on("mouseenter", function () {
+            global.editId = $j(this).attr("editId");
+            $j("[editId='" + $j(this).attr("editId") + "'").addClass("editEnter");
             var editIndex = $j(this).last().offset()
             tools.style.top = editIndex.top + $j(this).last().innerHeight() + "px";
             tools.style.left = editIndex.left + $j(this).last().innerWidth() + "px";
             $j(tools).show();
+        })
+        $j("[editId='" + global.editId + "']").on("mouseleave", function () {
+            $j("[editId='" + $j(this).attr("editId") + "'").removeClass("editEnter");
         })
     }
     var editNode = $j("[editId='" + editObj.editId + "']");
@@ -291,7 +332,12 @@ function editTo(editObj) { //执行标记动作
             editNode.css("background-color", editObj.color);
             editNode.css("border-radius", editObj.borderRadius);
             break;
+        case "delete":
+            console.log("del")
+            editNode.contents().unwrap();
+            break;
     }
+    saveChange()
 };
 
 function saveChange() {

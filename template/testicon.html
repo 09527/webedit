@@ -1,0 +1,43 @@
+<style>
+    .del_icon {
+        color: #000;
+        position: relative;
+        margin-left: 5px;
+        margin-top: 7px;
+        width: 10px;
+        height: 8px;
+        line-height: 8px;
+        text-align: center;
+        font-size: 10px;
+        border-left: solid 1.75px currentColor;
+        border-right: solid 1.75px currentColor;
+        border-bottom: solid 1.75px currentColor;
+        border-radius: 0 0 2px 2px;
+    }
+    .del_icon:after {
+        content: '';
+        position: absolute;
+        left: 0px;
+        top: -5px;
+        width: 7px;
+        height: 2px;
+        border-left: solid 1.75px currentColor;
+        border-right: solid 1.75px currentColor;
+        border-top: solid 1.75px currentColor;
+        border-radius: 4px 4px 0 0;
+    }
+    .del_icon:hover:after,.del_icon:hover:before{
+        transform: rotateZ(30deg) translateY(-2px);
+    }
+    .del_icon:before {
+        content: "";
+        position: absolute;
+        left: -2.5px;
+        top: -5px;
+        width: 14px;
+        height: 2px;
+        border-bottom: solid 1.75px currentColor;
+        border-radius: 5px 5px 0 0;
+    }
+</style>
+<div class="del_icon">A</div>
