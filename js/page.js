@@ -131,7 +131,6 @@ $j.get(chrome.extension.getURL("template/tools.html"), function (result) { //加
             $j(".edit-tool-backgroundColorPen").css("background-color", oldColor)
         }
         cp.hide()
-        recordColor()
     })
     function recordColor() {
         if (clickThis.hasClass("pen-item4")) {
