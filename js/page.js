@@ -1,4 +1,9 @@
 var $j = jQuery.noConflict();
+$j.fn.extend({
+    normalize:function(){
+        this[0].normalize();
+    }
+});
 var global = {
     range: "",
     editId: "",
@@ -126,7 +131,6 @@ $j.get(chrome.extension.getURL("template/tools.html"), function (result) { //加
             $j(".edit-tool-backgroundColorPen").css("background-color", oldColor)
         }
         cp.hide()
-        recordColor()
     })
     function recordColor() {
         if (clickThis.hasClass("pen-item4")) {
@@ -178,7 +182,6 @@ function addToolEvent() { //监听工具和页面点击事件
         saveChange()
     })
     $j(".edit-tool-del").on("click", function () {
-        console.log(global.editId)
         editTo({
             type: "delete",
             editId: global.editId
@@ -265,6 +268,7 @@ function listenEdit() { //监听选择事件
                         tools.style.left = editIndex.left + $j(indexNode).innerWidth() + "px";
                         $j(tools).show();
                         $j(indexNode).remove()
+                        endDom.parentNode.normalize();
                     } else {
                         $j("#edit-tools").hide()
                     }
@@ -333,8 +337,9 @@ function editTo(editObj) { //执行标记动作
             editNode.css("border-radius", editObj.borderRadius);
             break;
         case "delete":
-            console.log("del")
+            var parentNode=editNode.parent()
             editNode.contents().unwrap();
+            parentNode.normalize();
             break;
     }
     saveChange()
